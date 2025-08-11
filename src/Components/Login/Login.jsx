@@ -47,14 +47,14 @@ export default function Login() {
         <div className='main-style py-[95px] '>
           <div className="flex flex-col md:flex-row md:items-center md:justify-around flex-wra">
             <motion.div
-              initial={{ x: -250, opacity: 0 }}
+              initial={{ x: -150, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
               className='sm:w-full md:w-1/2 lg:w-1/3'>
               <img src={LoginImage} className={Styles.login__image} alt="" />
             </motion.div>
             <motion.div className="sm:w-full md:w-1/2 lg:w-1/4"
-              initial={{ x: 250, opacity: 0 }}
+              initial={{ x: 150, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}>
               <h1 className='text-blue-600 font-bold text-4xl text-2xl my-4 text-center ' >Netloop App</h1>

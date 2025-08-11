@@ -50,7 +50,7 @@ export default function Register() {
 
 
           <motion.div className='w-full md:w-1/2 lg:w-1/3 flex justify-center'
-            initial={{ x: -250, opacity: 0 }}
+            initial={{ x: -150, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}>
             <img src={RegisterImage} className={Styles.register__image} alt="Register Illustration" />
@@ -58,7 +58,7 @@ export default function Register() {
 
 
           <motion.div className="w-full md:w-1/2 lg:w-1/4"
-            initial={{ x: 250, opacity: 0 }}
+            initial={{ x: 150, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
