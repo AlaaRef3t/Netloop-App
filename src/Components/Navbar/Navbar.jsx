@@ -1,0 +1,61 @@
+import React, { useContext } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import ProfileImg from '../../assets/profile.jpg'
+import { TokenContext } from '../../Context/TokenContext'
+import { IoHome } from "react-icons/io5";
+import { FaUserSecret } from "react-icons/fa6";
+import { IoLogOut } from "react-icons/io5";
+
+export default function Navbar() {
+    let { token, setToken } = useContext(TokenContext)
+    let navigate = useNavigate()
+
+    function logOut() {
+        localStorage.removeItem("userToken")
+        setToken(null)
+        navigate("./login")
+    }
+
+    return (
+        <>
+            {token ? (
+                <div className="navbar bg-base-100 shadow-lg mb-4 w-[95%] mx-auto fixed z-4 top-0 left-0 right-0 flex items-center ">
+                    
+                    <div className="flex-1">
+                        <Link to={"./"} className="italic btn btn-ghost text-blue-800 font-[900] text-2xl active">
+                            Netloop Posts
+                        </Link>
+                    </div>
+
+                    <ul className="hidden md:flex gap-4 items-center absolute left-1/2 -translate-x-1/2">
+                        <li><NavLink  to={"./"}><IoHome size={24} /></NavLink></li>
+                        <li><NavLink to={"./userPosts"}><FaUserSecret size={22} /></NavLink></li>
+                        <li><a className='cursor-pointer' onClick={logOut}><IoLogOut  size={27}/></a></li>
+                    </ul>
+
+                    <div className="flex gap-2 items-center justify-end flex-1">
+                        <div className="w-10 h-10 rounded-full overflow-hidden">
+                            <img src={ProfileImg} alt="Profile" />
+                        </div>
+
+                        <div className="dropdown dropdown-end md:hidden">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                            >
+                                <li><NavLink to={"./"}>Home</NavLink></li>
+                                <li><NavLink to={"./userPosts"}>User Posts</NavLink></li>
+                                <li><button onClick={logOut}>Logout</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
+        </>
+    )
+}

@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+
+.active{
+  color: blue;
+  font-weight: 500;
+}
+body{
+  
+  background-color: #f7f7f7;
+}
+.main-style{
+  background-color: #f7f7f7;
+  height: 100%;
+}
+.not-found{
+  
+   @apply h-[100dvh]
+  
+}
+
