@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import ProfileImg from '../../assets/profile.jpg'
 import { TokenContext } from '../../Context/TokenContext'
 import { IoHome } from "react-icons/io5";
-import { FaUserSecret } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 
 export default function Navbar() {
@@ -29,7 +29,7 @@ export default function Navbar() {
 
                     <ul className="hidden md:flex gap-4 items-center absolute left-1/2 -translate-x-1/2">
                         <li><NavLink  to={"./"}><IoHome size={24} /></NavLink></li>
-                        <li><NavLink to={"./userPosts"}><FaUserSecret size={22} /></NavLink></li>
+                        <li><NavLink to={"./userPosts"}><FaUser size={22} /></NavLink></li>
                         <li><a className='cursor-pointer' onClick={logOut}><IoLogOut  size={27}/></a></li>
                     </ul>
 
