@@ -22,7 +22,7 @@ export default function Navbar() {
                 <div className="navbar bg-base-100 shadow-lg mb-4 w-[95%] mx-auto fixed z-4 top-0 left-0 right-0 flex items-center ">
                     
                     <div className="flex-1">
-                        <Link to={"./"} className="italic btn btn-ghost text-blue-800 font-[900] text-2xl ">
+                        <Link to={"./"} className="italic btn btn-ghost text-blue-800 font-[900] md:text-2xl">
                             Netloop Posts
                         </Link>
                     </div>
