@@ -60,7 +60,7 @@ export default function Login() {
               <h1 className='text-blue-600 font-bold text-4xl text-2xl my-4 text-center ' >Netloop App</h1>
 
               <div className=" mx-auto shadow-lg p-4 bg-white py-5 mobScreen">
-                <h1 className='text-black-800  text-2xl my-5 text-center ' >Login to Netloop App</h1>
+                <h1 className='text-black-800  text-2xl my-5 text-center  dark:text-black ' >Login to Netloop App</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
 

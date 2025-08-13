@@ -64,7 +64,7 @@ export default function Register() {
           >
             <h1 className='text-blue-600 font-bold text-5xl text-center my-4'>Netloop App</h1>
             <div className="mx-auto shadow-lg p-4 bg-white py-5">
-              <h1 className='text-black-800 font-bold text-2xl mt-5 text-center'>Create a new account</h1>
+              <h1 className='text-black-800 font-bold text-2xl mt-5 text-center  dark:text-black'>Create a new account</h1>
               <p className='text-sm text-gray-600 text-center mb-5'>It's quick and easy.</p>
 
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,7 +97,7 @@ export default function Register() {
                 <input {...register("dateOfBirth")} type="date" className="input input-neutral w-full focus:outline-0 border-slate-400 my-2" />
                 {errors.dateOfBirth && <p className='text-red-800'>{errors.dateOfBirth.message}</p>}
 
-                <div className="my-2">
+                <div className="my-2  dark:text-black">
                   <input {...register("gender")} type="radio" value="male" id='male' className="radio radio-primary" />
                   <label className='mx-2' htmlFor="male">Male</label>
                   <input {...register("gender")} type="radio" value="female" id='female' className="radio radio-primary" />
