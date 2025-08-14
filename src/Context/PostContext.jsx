@@ -16,7 +16,7 @@ export default function PostContextProvider({ children }) {
         }
         try {
 
-            let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?limit=50`, {
+            let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
                 headers
             })
 
@@ -56,9 +56,9 @@ export default function PostContextProvider({ children }) {
         }
     }
 
- async function getUserPosts(id) {
+    async function getUserPosts(id) {
         try {
-            let { data } = await axios.get(`https://linked-posts.routemisr.com/users/${id}/posts?limit=2`, {
+            let { data } = await axios.get(`https://linked-posts.routemisr.com/users/${id}/posts?limit=50`, {
                 headers
             })
             // console.log(data , "from user posts");
@@ -87,9 +87,40 @@ export default function PostContextProvider({ children }) {
 
         }
     }
-   
 
-    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts,addComment }}>
+    async function addNewPost(formData) {
+        try {
+            let { data } = await axios.post(`https://linked-posts.routemisr.com/posts`, formData, {
+                headers
+            })
+            // console.log(data, "from add post");
+            toast.success('Post Successfully Added!')
+
+        } catch (error) {
+            console.log(error);
+            toast.error('Post failed!')
+
+        }
+    }
+
+    async function deleteUserPost(id) {
+        try {
+            let { data } = await axios.delete(`https://linked-posts.routemisr.com/posts/${id}`, {
+                headers
+            })
+            // console.log(data , "from delete posts");
+            toast.success('Post Successfully Deleted!')
+
+
+        } catch (error) {
+            console.log(error);
+            toast.error('Failed to Delete!')
+
+
+        }
+    }
+
+    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts, addComment, addNewPost ,deleteUserPost}}>
         {children}
     </PostContext.Provider>
 

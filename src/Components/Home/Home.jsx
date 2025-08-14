@@ -13,7 +13,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   async function getAllPostsBridge() {
     let response = await getAllPosts();
-    console.log(response);
+    // console.log(response);
     setAllPosts(response);
     setIsLoading(false)
   }
@@ -27,10 +27,10 @@ export default function Home() {
         <div className="flex justify-center items-center">
           <div className="w-full mt-12">
             {isLoading ? <PostCardLoader /> : <>
-              
-              <AddPost/>
-            {allPosts?.map((post) => <PostCard post={post} key={post._id}/>)}
-            
+
+              <AddPost />
+              {allPosts?.map((post) => <PostCard post={post} key={post._id} />)}
+
             </>}
           </div>
         </div>

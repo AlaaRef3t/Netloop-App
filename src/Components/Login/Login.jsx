@@ -25,11 +25,11 @@ export default function Login() {
   let Navigate = useNavigate()
   async function onSubmit(values) {
 
-    console.log(values)
+    // console.log(values)
 
     try {
       let { data } = await axios.post("https://linked-posts.routemisr.com/users/signin", values)
-      console.log(data);
+      // console.log(data);
       if (data.message == 'success') {
         localStorage.setItem("userToken", data.token)
         setToken(data.token)

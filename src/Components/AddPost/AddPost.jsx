@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProfileImg from '../../assets/profile.jpg'
+import { PostContext } from "../../Context/PostContext";
+
+export default function AddPost({callback}) {
+    let { addNewPost } = useContext(PostContext)
+    
 
 
-export default function AddPost() {
+  async function handleAddPost(e) {
+      e.preventDefault();
+
+      let formData = new FormData();
+
+      let body = e.target.body.value;
+      let image = e.target.image.files[0];
+      
+      formData.append("body", body)
+      formData.append("image", image)
+
+      let response = await addNewPost(formData);
+    //   console.log(response , "from response ");
+      
+      callback()
+    
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow p-4 w-full max-w-xl mx-auto mt-6">
-      {/* أعلى الصندوق */}
+    <form
+      onSubmit={handleAddPost}
+      className="bg-white rounded-lg shadow p-4 w-full max-w-xl mx-auto mt-6"
+    >
+     
       <div className="flex items-center gap-3">
         <img
           src={ProfileImg}
@@ -22,19 +47,30 @@ export default function AddPost() {
 
       <hr className="my-3" />
 
-      {/* خيارات أسفل الصندوق */}
-      <div className="flex justify-between text-gray-600 text-sm font-medium">
-        <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded-lg transition">
-          📷
-          <span>Photo/Video</span>
-          <input type="file" name="image" className="hidden" />
-        </label>
+      <div className="flex justify-between items-center text-gray-600 text-sm font-medium">
+        <div className="flex gap-3">
+          <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded-lg transition">
+            📷
+            <span>Photo/Video</span>
+            <input type="file" name="image" className="hidden" />
+          </label>
 
-        <button className="flex items-center gap-2 hover:bg-gray-100 px-3 py-2 rounded-lg transition">
-          😀
-          <span>Feeling/Activity</span>
+          <button
+            type="button"
+            className="flex items-center gap-2 hover:bg-gray-100 px-3 py-2 rounded-lg transition"
+          >
+            😀
+            <span>Feeling/Activity</span>
+          </button>
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
+        >
+          Add Post
         </button>
       </div>
-    </div>
+    </form>
   );
 }
