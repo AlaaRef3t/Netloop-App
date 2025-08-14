@@ -11,6 +11,7 @@ export default function PostCard({ post }) {
     // console.log(post);
 
     const [showComments, setShowComments] = useState(false);
+    const [moreComments, setMoreComments] = useState(1)
 
     return (
         <div className="card bg-base-100 shadow-md p-4 max-w-xl mx-auto my-6">
@@ -44,7 +45,7 @@ export default function PostCard({ post }) {
                     className="btn btn-ghost btn-md"
                     onClick={() => setShowComments(!showComments)}
                 >
-                    <FaRegComment size={18} /> Comment
+                    <FaRegComment size={18} /> Comment {post?.comments?.length}
                 </button>
                 <button className="btn btn-ghost btn-md"><FaShare size={18} /> Share</button>
             </div>
@@ -53,7 +54,7 @@ export default function PostCard({ post }) {
             {showComments && (
                 <div className="mt-4">
 
-                    {post?.comments?.map((comment) => <div key={comment?._id}>
+                    {post?.comments?.slice(0, moreComments).map((comment) => <div key={comment?._id}>
                         <div className="mb-2 flex justify-between gap-3 items-center">
                             <div className="flex items-center">
                                 <div className=" avatar">
@@ -70,7 +71,11 @@ export default function PostCard({ post }) {
                         </div>
                     </div>)}
 
+                    {post?.comments?.length > moreComments &&<div className="text-center py-2">
+                        <button  onClick={() => setMoreComments(moreComments + 2)} className="btn btn-sm py-4">Show More Comments</button>
 
+                    </div>}
+                    
 
                     {/* New Comment Input */}
                     <form className="flex  gap-5 content-between items-center">

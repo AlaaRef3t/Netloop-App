@@ -13,7 +13,7 @@ export default function Navbar() {
     function logOut() {
         localStorage.removeItem("userToken")
         setToken(null)
-        navigate("./login")
+        navigate("/login")
     }
 
     return (
@@ -22,14 +22,14 @@ export default function Navbar() {
                 <div className="navbar bg-base-100 shadow-lg mb-4 w-[95%] mx-auto fixed z-4 top-0 left-0 right-0 flex items-center ">
                     
                     <div className="flex-1">
-                        <Link to={"./"} className="italic btn btn-ghost text-blue-800 font-[900] md:text-2xl">
+                        <Link to={"/"} className="italic btn btn-ghost text-blue-800 font-[900] md:text-2xl">
                             Netloop Posts
                         </Link>
                     </div>
 
                     <ul className="hidden md:flex gap-4 items-center absolute left-1/2 -translate-x-1/2">
-                        <li><NavLink  to={"./"}><IoHome size={24} /></NavLink></li>
-                        <li><NavLink to={"./userPosts"}><FaUser size={22} /></NavLink></li>
+                        <li><NavLink  to={"/"}><IoHome size={24} /></NavLink></li>
+                        <li><NavLink to={"/userPosts"}><FaUser size={22} /></NavLink></li>
                         <li><a className='cursor-pointer' onClick={logOut}><IoLogOut  size={27}/></a></li>
                     </ul>
 
@@ -48,8 +48,8 @@ export default function Navbar() {
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                             >
-                                <li><NavLink to={"./"}>Home</NavLink></li>
-                                <li><NavLink to={"./userPosts"}>User Posts</NavLink></li>
+                                <li><NavLink to={"/"}>Home</NavLink></li>
+                                <li><NavLink to={"/userPosts"}>User Posts</NavLink></li>
                                 <li><button onClick={logOut}>Logout</button></li>
                             </ul>
                         </div>

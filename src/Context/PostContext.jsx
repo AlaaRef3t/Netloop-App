@@ -4,13 +4,15 @@ import { createContext } from "react";
 export let PostContext = createContext();
 
 export default function PostContextProvider({ children }) {
+
     let headers = {
         token: localStorage.getItem("userToken")
     }
 
-
     async function getAllPosts() {
-
+        let headers = {
+            token: localStorage.getItem("userToken")
+        }
         try {
 
             let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?limit=50`, {
@@ -53,7 +55,7 @@ export default function PostContextProvider({ children }) {
         }
     }
 
-      async function getUserPosts(id) {
+    async function getUserPosts(id) {
         try {
             let { data } = await axios.get(`https://linked-posts.routemisr.com/users/${id}/posts?limit=2`, {
                 headers
@@ -61,14 +63,14 @@ export default function PostContextProvider({ children }) {
             // console.log(data , "from user posts");
 
             return data.posts;
-            
+
         } catch (error) {
             console.log(error);
 
         }
     }
 
-    return <PostContext.Provider value={{ getAllPosts, getSinglePost,getUserData,getUserPosts }}>
+    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts }}>
         {children}
     </PostContext.Provider>
 

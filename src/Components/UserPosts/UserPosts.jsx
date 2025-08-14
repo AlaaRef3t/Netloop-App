@@ -9,11 +9,13 @@ export default function UserPosts() {
 
   async function getUserDataBridge() {
     let response = await getUserData();
-    console.log(response._id)
+    // console.log(response._id)
+    
+    
 
     let postsData = await getUserPosts(response._id)
 
-    // console.log(postsData)
+    console.log(postsData)
     setUserPosts(postsData)
   }
 

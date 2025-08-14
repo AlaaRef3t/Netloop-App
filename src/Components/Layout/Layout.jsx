@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer'
 export default function Layout() {
   return (
     <>
-      <div className='dark:bg-gray-900 dark:text-white'>
+      <div className=' min-h-screen dark:bg-gray-900 dark:text-white'>
         <Navbar />
         <Outlet />
         <Footer/>
