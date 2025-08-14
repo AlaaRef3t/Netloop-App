@@ -19,7 +19,7 @@ export default function UserPosts() {
     setUserPosts(postsData)
   }
 
-  // console.log(userPosts);
+  console.log(userPosts);
   
   useEffect(() => { 
     getUserDataBridge();

@@ -3,6 +3,7 @@ import Styles from './Home.module.css'
 import { PostContext } from '../../Context/PostContext'
 import PostCard from '../PostCard/PostCard';
 import PostCardLoader from '../PostCardLoader/PostCardLoader';
+import AddPost from '../AddPost/AddPost';
 
 
 
@@ -25,8 +26,12 @@ export default function Home() {
       <div className="container mx-auto">
         <div className="flex justify-center items-center">
           <div className="w-full mt-12">
-            {isLoading ? <PostCardLoader/> : null}
+            {isLoading ? <PostCardLoader /> : <>
+              
+              <AddPost/>
             {allPosts?.map((post) => <PostCard post={post} key={post._id}/>)}
+            
+            </>}
           </div>
         </div>
       </div>
