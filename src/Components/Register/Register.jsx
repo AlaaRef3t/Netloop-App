@@ -84,7 +84,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="hover:text-blue-500 text-xl absolute right-3 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer"
+                    className="hover:text-blue-500 text-xl absolute right-3 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer z-2"
                   ><BiSolidShow /></button>
                 </div>
                 {errors.password && <p className='text-red-800'>{errors.password.message}</p>}
@@ -94,7 +94,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="hover:text-blue-500 text-xl absolute right-3 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer"
+                    className="hover:text-blue-500 text-xl absolute right-3 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer z-2"
                   ><BiSolidShow /></button>
                 </div>
                 {errors.rePassword && <p className='text-red-800'>{errors.rePassword.message}</p>}
