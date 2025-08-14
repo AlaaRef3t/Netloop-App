@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext } from "react";
+import toast from "react-hot-toast";
 
 export let PostContext = createContext();
 
@@ -55,7 +56,7 @@ export default function PostContextProvider({ children }) {
         }
     }
 
-    async function getUserPosts(id) {
+ async function getUserPosts(id) {
         try {
             let { data } = await axios.get(`https://linked-posts.routemisr.com/users/${id}/posts?limit=2`, {
                 headers
@@ -70,7 +71,25 @@ export default function PostContextProvider({ children }) {
         }
     }
 
-    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts }}>
+
+    async function addComment(body) {
+        try {
+            let { data } = await axios.post(`https://linked-posts.routemisr.com/comments`, body, {
+                headers
+            })
+            // console.log(data, "from add comment");
+            toast.success('Comment Successfully Added!')
+            return data.comments;
+
+        } catch (error) {
+            console.log(error);
+            toast.error('Comment failed!')
+
+        }
+    }
+   
+
+    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts,addComment }}>
         {children}
     </PostContext.Provider>
 

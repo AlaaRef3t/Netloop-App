@@ -1,18 +1,32 @@
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import userImage from '../../assets/userProfile.jpg'
 import userPostImage from '../../assets/postsImage.jpg'
 import { Link } from "react-router-dom";
 import { SlLike } from "react-icons/sl";
 import { FaRegComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
+import { PostContext } from "../../Context/PostContext";
 
 export default function PostCard({ post }) {
-    // console.log(post);
-
+    let { addComment } = useContext(PostContext)
     const [showComments, setShowComments] = useState(false);
     const [moreComments, setMoreComments] = useState(1)
+    const [commentContent, setCommentContent] = useState("")
+    const [comments, setComments] = useState([])
 
+    useEffect(() => { 
+        setComments(post.comments)
+    },[])
+    async function handleAddComment(e) {
+        e.preventDefault()
+
+        let response = await addComment({ content: commentContent, post: post._id })
+        console.log(response, "new comment");
+        setComments(response)
+
+
+    }
     return (
         <div className="card bg-base-100 shadow-md p-4 max-w-xl mx-auto my-6">
 
@@ -45,7 +59,7 @@ export default function PostCard({ post }) {
                     className="btn btn-ghost btn-md"
                     onClick={() => setShowComments(!showComments)}
                 >
-                    <FaRegComment size={18} /> Comment {post?.comments?.length}
+                    <FaRegComment size={18} /> Comment {comments?.length}
                 </button>
                 <button className="btn btn-ghost btn-md"><FaShare size={18} /> Share</button>
             </div>
@@ -54,7 +68,7 @@ export default function PostCard({ post }) {
             {showComments && (
                 <div className="mt-4">
 
-                    {post?.comments?.slice(0, moreComments).map((comment) => <div key={comment?._id}>
+                    {comments?.slice(0, moreComments).map((comment) => <div key={comment?._id}>
                         <div className="mb-2 flex justify-between gap-3 items-center">
                             <div className="flex items-center">
                                 <div className=" avatar">
@@ -71,21 +85,23 @@ export default function PostCard({ post }) {
                         </div>
                     </div>)}
 
-                    {post?.comments?.length > moreComments &&<div className="text-center py-2">
-                        <button  onClick={() => setMoreComments(moreComments + 2)} className="btn btn-sm py-4">Show More Comments</button>
+                    {comments?.length > moreComments && <div className="text-center py-2">
+                        <button onClick={() => setMoreComments(moreComments + 2)} className="btn btn-sm py-4">Show More Comments</button>
 
                     </div>}
-                    
+
 
                     {/* New Comment Input */}
-                    <form className="flex  gap-5 content-between items-center">
+                    <form onSubmit={handleAddComment} className="flex  gap-5 content-between items-center">
                         <input
                             type="text"
                             name="content"
+                            value={commentContent}
+                            onChange={(e) => setCommentContent(e.target.value)}
                             placeholder="Write a comment..."
                             className="input input-bordered w-full"
                         />
-                        <button className="px-3 py-2 bg-blue-400 text-white rounded-xl">
+                        <button className="cursor-pointer px-3 py-2 bg-blue-400 text-white rounded-xl">
                             Add
                         </button>
                     </form>

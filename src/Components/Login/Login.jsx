@@ -10,6 +10,7 @@ import { BiSolidShow } from "react-icons/bi";
 import { TokenContext } from '../../Context/TokenContext';
 import LoginImage from '../../assets/login2.png'
 import { motion } from "motion/react"
+import toast from 'react-hot-toast';
 
 export default function Login() {
   let { token, setToken } = useContext(TokenContext)
@@ -32,6 +33,8 @@ export default function Login() {
       if (data.message == 'success') {
         localStorage.setItem("userToken", data.token)
         setToken(data.token)
+        toast.success('logged in successfully!')
+
         Navigate("/")
       }
     } catch (error) {
