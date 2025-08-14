@@ -39,6 +39,8 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error.response.data.error)
+        toast.error('Failed to login!')
+
       setError("root", { message: error.response.data.error })
     }
   }

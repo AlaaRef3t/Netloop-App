@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { BiSolidShow } from "react-icons/bi";
 import RegisterImage from '../../assets/sign2.png'
 import { motion } from "motion/react"
+import toast from 'react-hot-toast';
 
 export default function Register() {
 
@@ -33,11 +34,15 @@ export default function Register() {
   async function onSubmit(values) {
     try {
       let { data } = await axios.post("https://linked-posts.routemisr.com/users/signup", values)
+        toast.success('successfully registered!')
+
       if (data.message === 'success') {
         Navigate("/login")
       }
     } catch (error) {
       setError("root", { message: error.response.data.error })
+        toast.error('Failed to register!')
+
     }
   }
 
