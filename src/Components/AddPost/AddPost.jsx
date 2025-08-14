@@ -2,27 +2,29 @@ import React, { useContext } from "react";
 import ProfileImg from '../../assets/profile.jpg'
 import { PostContext } from "../../Context/PostContext";
 
-export default function AddPost({callback}) {
-    let { addNewPost } = useContext(PostContext)
-    
+export default function AddPost({ callback }) {
+  let { addNewPost } = useContext(PostContext)
+
 
 
   async function handleAddPost(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      let formData = new FormData();
+    let formData = new FormData();
 
-      let body = e.target.body.value;
-      let image = e.target.image.files[0];
-      
-      formData.append("body", body)
+    let body = e.target.body.value;
+    let image = e.target.image.files[0];
+
+    formData.append("body", body)
+    if (image) {
       formData.append("image", image)
 
-      let response = await addNewPost(formData);
+    }
+    let response = await addNewPost(formData);
     //   console.log(response , "from response ");
-      
-      callback()
-    
+
+    callback()
+
   };
 
   return (
@@ -30,7 +32,7 @@ export default function AddPost({callback}) {
       onSubmit={handleAddPost}
       className="bg-white rounded-lg shadow p-4 w-full max-w-xl mx-auto mt-6"
     >
-     
+
       <div className="flex items-center gap-3">
         <img
           src={ProfileImg}
