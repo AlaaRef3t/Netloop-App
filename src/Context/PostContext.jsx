@@ -10,21 +10,22 @@ export default function PostContextProvider({ children }) {
         token: localStorage.getItem("userToken")
     }
 
-    async function getAllPosts() {
-        let headers = {
-            token: localStorage.getItem("userToken")
-        }
-        try {
+    // async function getAllPosts() {
+    //     let headers = {
+    //         token: localStorage.getItem("userToken")
+    //     }
+    //     try {
 
-            let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
-                headers
-            })
+    //         let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
+    //             headers
+    //         })
 
-            return data.posts;
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //         return data.posts;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
     async function getSinglePost(id) {
 
         try {
@@ -40,6 +41,7 @@ export default function PostContextProvider({ children }) {
 
         }
     }
+
     async function getUserData() {
 
         try {
@@ -71,7 +73,6 @@ export default function PostContextProvider({ children }) {
         }
     }
 
-
     async function addComment(body) {
         try {
             let { data } = await axios.post(`https://linked-posts.routemisr.com/comments`, body, {
@@ -93,7 +94,7 @@ export default function PostContextProvider({ children }) {
             let { data } = await axios.post(`https://linked-posts.routemisr.com/posts`, formData, {
                 headers
             })
-            // console.log(data, "from add post");
+            console.log(data, "from add post");
             toast.success('Post Successfully Added!')
 
         } catch (error) {
@@ -108,7 +109,7 @@ export default function PostContextProvider({ children }) {
             let { data } = await axios.delete(`https://linked-posts.routemisr.com/posts/${id}`, {
                 headers
             })
-            // console.log(data , "from delete posts");
+            console.log(data , "from delete posts");
             toast.success('Post Successfully Deleted!')
 
 
@@ -120,7 +121,10 @@ export default function PostContextProvider({ children }) {
         }
     }
 
-    return <PostContext.Provider value={{ getAllPosts, getSinglePost, getUserData, getUserPosts, addComment, addNewPost ,deleteUserPost}}>
+    return <PostContext.Provider value={{
+         getSinglePost, getUserData, getUserPosts,
+        addComment, addNewPost, deleteUserPost
+    }}>
         {children}
     </PostContext.Provider>
 

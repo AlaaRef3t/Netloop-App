@@ -7,8 +7,12 @@ import userImage from '../../assets/userProfile.jpg';
 import userPostImage from '../../assets/postsImage.jpg';
 import { PostContext } from "../../Context/PostContext";
 
-export default function PostCard({ post , callback }) {
-    let { addComment,deleteUserPost } = useContext(PostContext);
+import {
+    useQuery,
+} from '@tanstack/react-query'
+
+export default function PostCard({ post, callback }) {
+    let { addComment, deleteUserPost } = useContext(PostContext);
     const [showComments, setShowComments] = useState(false);
     const [moreComments, setMoreComments] = useState(1);
     const [commentContent, setCommentContent] = useState("");
@@ -29,16 +33,16 @@ export default function PostCard({ post , callback }) {
     async function handleDelete(id) {
         let response = await deleteUserPost(id)
         callback()
-        // console.log(response);
-        
+        console.log(response);
+
     }
 
-    
+
 
     return (
         <div className="card bg-base-100 shadow-md p-4 max-w-xl mx-auto my-6 relative">
 
-           
+
             <div className="absolute top-2 right-2">
                 <button
                     className="p-2 cursor-pointer rounded-full hover:bg-gray-200"
@@ -49,9 +53,9 @@ export default function PostCard({ post , callback }) {
 
                 {showMenu && (
                     <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg overflow-hidden z-10">
-                        
+
                         <button
-                            onClick={()=>handleDelete(post._id)}
+                            onClick={() => handleDelete(post._id)}
                             className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
                         >
                             Delete

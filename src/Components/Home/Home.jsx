@@ -4,23 +4,50 @@ import { PostContext } from '../../Context/PostContext'
 import PostCard from '../PostCard/PostCard';
 import PostCardLoader from '../PostCardLoader/PostCardLoader';
 import AddPost from '../AddPost/AddPost';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { data } from 'react-router-dom';
 
 
 
 export default function Home() {
-  const [allPosts, setAllPosts] = useState([])
-  let { getAllPosts } = useContext(PostContext);
-  const [isLoading, setIsLoading] = useState(true)
-  async function getAllPostsBridge() {
-    let response = await getAllPosts();
-    // console.log(response);
-    setAllPosts(response);
-    setIsLoading(false)
-  }
+  // const [allPosts, setAllPosts] = useState([])
+  // let { getAllPosts } = useContext(PostContext);
+  // const [isLoading, setIsLoading] = useState(true)
+  // async function getAllPostsBridge() {
+  //   let response = await getAllPosts();
+  //   // console.log(response);
+  //   setAllPosts(response);
+  //   setIsLoading(false)
+  // }
 
-  useEffect(() => {
-    getAllPostsBridge();
-  }, [])
+  // useEffect(() => {
+  //   getAllPostsBridge();
+  // }, [])
+
+
+
+   async function getAllPosts() {
+        let headers = {
+            token: localStorage.getItem("userToken")
+        }
+        
+
+             
+            return axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
+                headers
+            })  
+        
+  }
+  
+ let { data, isLoading, isError } = useQuery({
+  queryKey: ["allPosts"],
+  queryFn: getAllPosts,
+  select: (data) => data.data.posts
+});
+  
+  console.log(data);
+  
   return (
     <>
       <div className="container mx-auto">
@@ -29,7 +56,7 @@ export default function Home() {
             {isLoading ? <PostCardLoader /> : <>
 
               <AddPost />
-              {allPosts?.map((post) => <PostCard post={post} key={post._id} />)}
+              {data?.map((post) => <PostCard post={post} key={post._id} />)}
 
             </>}
           </div>

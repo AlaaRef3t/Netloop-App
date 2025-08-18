@@ -11,17 +11,21 @@ import NotFound from './Components/NotFound/NotFound';
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes';
 import ProtectedAuth from './Components/ProtectedAuth/ProtectedAuth';
 import PostDetails from './Components/PostDetails/PostDetails';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+
+  const queryClient = new QueryClient()
+
   let routes = createBrowserRouter([
     {
       path: "", element: <Layout />, children: [
         { index: true, element: <ProtectedRoutes> <Home /></ProtectedRoutes> },
-        { path: "userPosts", element:<ProtectedRoutes><UserPosts /></ProtectedRoutes>  },
-        { path: "postDetails/:id", element:<ProtectedRoutes><PostDetails /></ProtectedRoutes>  },
+        { path: "userPosts", element: <ProtectedRoutes><UserPosts /></ProtectedRoutes> },
+        { path: "postDetails/:id", element: <ProtectedRoutes><PostDetails /></ProtectedRoutes> },
 
 
-        { path: "register", element: <ProtectedAuth><Register /></ProtectedAuth>  },
+        { path: "register", element: <ProtectedAuth><Register /></ProtectedAuth> },
         { path: "login", element: <ProtectedAuth><Login /> </ProtectedAuth> },
 
 
@@ -35,7 +39,9 @@ function App() {
   ])
   return (
     <>
-      <RouterProvider router={routes}></RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={routes} />
+      </QueryClientProvider>
     </>
   )
 }
