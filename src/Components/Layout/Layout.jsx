@@ -9,7 +9,9 @@ export default function Layout() {
     <>
       <div className=' min-h-screen dark:bg-gray-900 dark:text-white'>
         <Navbar />
-        <Outlet />
+        <div className='min-h-screen'>
+          <Outlet />
+        </div>
         <Footer/>
       </div>
 

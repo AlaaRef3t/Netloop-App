@@ -39,7 +39,7 @@ export default function AddPost({ callback }) {
           alt="profile"
           className="w-10 h-10 rounded-full"
         />
-        <input
+        <textarea
           type="text"
           name="body"
           placeholder="What's on your mind?"
