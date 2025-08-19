@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProfileImg from '../../assets/profile.jpg'
 import { PostContext } from "../../Context/PostContext";
 
 export default function AddPost({ callback }) {
   let { addNewPost } = useContext(PostContext)
-
+  const [isLoading, setIsLoading] = useState(false)
 
 
   async function handleAddPost(e) {
     e.preventDefault();
-
+    setIsLoading(true)
     let formData = new FormData();
 
     let body = e.target.body.value;
@@ -22,7 +22,7 @@ export default function AddPost({ callback }) {
     }
     let response = await addNewPost(formData);
     //   console.log(response , "from response ");
-
+    setIsLoading(false)
     callback()
 
   };
@@ -65,13 +65,18 @@ export default function AddPost({ callback }) {
             <span>Feeling/Activity</span>
           </button>
         </div>
-
-        <button
+{isLoading?<button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
+        >
+          Posting... 
+        </button> : <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
         >
           Add Post
-        </button>
+        </button>}
+        
       </div>
     </form>
   );

@@ -27,38 +27,44 @@ export default function Home() {
 
 
 
-   async function getAllPosts() {
-        let headers = {
-            token: localStorage.getItem("userToken")
-        }
-        
+  async function getAllPosts() {
+    let headers = {
+      token: localStorage.getItem("userToken")
+    }
 
-             
-            return axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
-                headers
-            })  
-        
+
+
+    return axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
+      headers
+    })
+
   }
-  
- let { data, isLoading, isError } = useQuery({
-  queryKey: ["allPosts"],
-  queryFn: getAllPosts,
-  select: (data) => data.data.posts
-});
-  
+
+  let { data, isLoading, isError, isFetching, error } = useQuery({
+    queryKey: ["allPosts"],
+    queryFn: getAllPosts,
+    select: (data) => data.data,
+    retry: 2,
+    refetchInterval: 2000,
+    gcTime:2000,
+  });
+
   console.log(data);
-  
+
   return (
     <>
       <div className="container mx-auto">
         <div className="flex justify-center items-center">
           <div className="w-full mt-12">
+           
             {isLoading ? <PostCardLoader /> : <>
 
               <AddPost />
-              {data?.map((post) => <PostCard post={post} key={post._id} />)}
+              {data?.posts?.map((post) => <PostCard post={post} key={post._id} />)}
 
             </>}
+            {isError ? <p className='text-red-800 text-center text-3xl mt-10'>{error.message }</p> : null}
+
           </div>
         </div>
       </div>

@@ -6,10 +6,8 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import userImage from '../../assets/userProfile.jpg';
 import userPostImage from '../../assets/postsImage.jpg';
 import { PostContext } from "../../Context/PostContext";
+import moment from "moment";
 
-import {
-    useQuery,
-} from '@tanstack/react-query'
 
 export default function PostCard({ post, callback }) {
     let { addComment, deleteUserPost } = useContext(PostContext);
@@ -74,10 +72,7 @@ export default function PostCard({ post, callback }) {
                     <div>
                         <p className="font-bold">{post?.user?.name}</p>
                         <p className="text-sm text-gray-400">
-                            {new Date(post?.createdAt).toLocaleString('en-US', {
-                                dateStyle: 'medium',
-                                timeStyle: 'short'
-                            })}
+                            {moment((post?.createdAt)).fromNow()}
                         </p>
                     </div>
                 </div>

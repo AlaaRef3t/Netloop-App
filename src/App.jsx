@@ -12,6 +12,7 @@ import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes';
 import ProtectedAuth from './Components/ProtectedAuth/ProtectedAuth';
 import PostDetails from './Components/PostDetails/PostDetails';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={routes} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   )

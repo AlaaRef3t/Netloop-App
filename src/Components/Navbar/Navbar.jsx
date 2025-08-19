@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import ProfileImg from '../../assets/profile.jpg'
 import { TokenContext } from '../../Context/TokenContext'
@@ -7,6 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 
 export default function Navbar() {
+    const [showText, setShowText] = useState(false)
     let { token, setToken } = useContext(TokenContext)
     let navigate = useNavigate()
 
@@ -16,11 +17,14 @@ export default function Navbar() {
         navigate("/login")
     }
 
+    console.log(showText);
+
+
     return (
         <>
             {token ? (
                 <div className="navbar bg-base-100 shadow-lg mb-4 w-[95%] mx-auto fixed z-4 top-0 left-0 right-0 flex items-center ">
-                    
+
                     <div className="flex-1">
                         <Link to={"/"} className="italic btn btn-ghost text-blue-800 font-[900] md:text-2xl">
                             Netloop Posts
@@ -28,15 +32,26 @@ export default function Navbar() {
                     </div>
 
                     <ul className="hidden md:flex gap-4 items-center absolute left-1/2 -translate-x-1/2">
-                        <li><NavLink  to={"/"}><IoHome size={24} /></NavLink></li>
+                        <li><NavLink to={"/"}><IoHome size={24} /></NavLink></li>
                         <li><NavLink to={"/userPosts"}><FaUser size={22} /></NavLink></li>
-                        <li><a className='cursor-pointer' onClick={logOut}><IoLogOut  size={27}/></a></li>
+                        <li><a className='cursor-pointer' onClick={logOut}><IoLogOut size={27} /></a></li>
                     </ul>
 
-                    <div className="flex gap-2 items-center justify-end flex-1">
+                    <div className="flex gap-2 items-center justify-end flex-1 ">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
-                            <img src={ProfileImg} alt="Profile" />
+                            <img src={ProfileImg} className='cursor-pointer' alt="Profile" onClick={() => setShowText(!showText)} />
                         </div>
+                        {showText && (
+                            <div className="absolute right-0 mt-27 w-45 bg-white shadow-lg rounded-lg overflow-hidden z-10 ">
+
+                                <button
+                                    // onClick={() => handleDelete(post._id)}
+                                    className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
+                                >
+                                    Change Profile pic 
+                                </button>
+                            </div>
+                        )}
 
                         <div className="dropdown dropdown-end md:hidden">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
