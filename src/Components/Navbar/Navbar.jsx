@@ -5,11 +5,32 @@ import { TokenContext } from '../../Context/TokenContext'
 import { IoHome } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { MdEmail } from "react-icons/md";
 
 export default function Navbar() {
     const [showText, setShowText] = useState(false)
     let { token, setToken } = useContext(TokenContext)
     let navigate = useNavigate()
+
+
+    function getUserData() {
+        let headers = {
+            token: localStorage.getItem("userToken")
+        }
+
+        return axios.get(`https://linked-posts.routemisr.com/users/profile-data`, {
+            headers
+        })
+    }
+
+    let { data } = useQuery({
+        queryKey: ["userData"],
+        queryFn: getUserData,
+        select: (data) => data.data.user
+    })
+
 
     function logOut() {
         localStorage.removeItem("userToken")
@@ -17,7 +38,7 @@ export default function Navbar() {
         navigate("/login")
     }
 
-    console.log(showText);
+    console.log(data);
 
 
     return (
@@ -39,16 +60,31 @@ export default function Navbar() {
 
                     <div className="flex gap-2 items-center justify-end flex-1 ">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
-                            <img src={ProfileImg} className='cursor-pointer' alt="Profile" onClick={() => setShowText(!showText)} />
+                            <img src={data} className='cursor-pointer' alt="Profile" onClick={() => setShowText(!showText)} />
                         </div>
                         {showText && (
-                            <div className="absolute right-0 mt-27 w-45 bg-white shadow-lg rounded-lg overflow-hidden z-10 ">
+                            <div className="absolute right-0 mt-46 w-55 bg-white shadow-lg rounded-lg overflow-hidden z-10 ">
+
+                                
 
                                 <button
-                                    // onClick={() => handleDelete(post._id)}
+                                    className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
+                                    
+                                >
+                                 Welcome {data.name}!
+                                </button>
+                                <button
+                                    
+                                    className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500 "
+                                >
+                                     {data.email}
+
+                                </button>
+                                <button
+                                    
                                     className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
                                 >
-                                    Change Profile pic 
+                                    Change Profile pic
                                 </button>
                             </div>
                         )}

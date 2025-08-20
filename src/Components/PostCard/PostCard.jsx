@@ -100,9 +100,9 @@ export default function PostCard({ post, callback }) {
                 <div className="mt-4">
                     {comments?.slice(0, moreComments).map((comment) => (
                         <div key={comment?._id}>
-                            <div className="mb-2 flex justify-between gap-3 items-center">
+                            <div className="mb-2 flex justify-between gap-3 items-center ">
                                 <div className="flex items-center">
-                                    <div className="avatar">
+                                    <div className="avatar me-1">
                                         <div className="w-8 h-8 rounded-full">
                                             <img
                                                 src={comment?.commentCreator?.photo.includes("undefined") ? userImage : comment?.commentCreator?.photo}
@@ -110,13 +110,16 @@ export default function PostCard({ post, callback }) {
                                             />
                                         </div>
                                     </div>
-                                    <p>{comment?.commentCreator?.name}</p>
+                                    <div className="flex flex-col ">
+                                        <p className="text-sm font-bold">{comment?.commentCreator?.name}</p>
+                                        <span className="text-sm text-slate-400">{moment(comment.createdAt).fromNow()}</span>
+                                    </div>
                                 </div>
                                 <div className="chat-bubble w-full">{comment?.content}</div>
                             </div>
                         </div>
                     ))}
-
+                    {/* show more comments */}
                     {comments?.length > moreComments && (
                         <div className="text-center py-2">
                             <button onClick={() => setMoreComments(moreComments + 2)} className="btn btn-sm py-4">
@@ -124,7 +127,7 @@ export default function PostCard({ post, callback }) {
                             </button>
                         </div>
                     )}
-
+                    {/* add comment */}
                     <form onSubmit={handleAddComment} className="flex gap-5 content-between items-center">
                         <input
                             type="text"

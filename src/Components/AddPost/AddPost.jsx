@@ -8,6 +8,7 @@ export default function AddPost({ callback }) {
 
 
   async function handleAddPost(e) {
+
     e.preventDefault();
     setIsLoading(true)
     let formData = new FormData();
@@ -38,12 +39,14 @@ export default function AddPost({ callback }) {
           src={ProfileImg}
           alt="profile"
           className="w-10 h-10 rounded-full"
+          required
         />
         <textarea
           type="text"
           name="body"
           placeholder="What's on your mind?"
           className="flex-1 bg-gray-100 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+          required
         />
       </div>
 
