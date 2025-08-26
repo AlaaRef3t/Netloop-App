@@ -14,7 +14,7 @@ export default function Navbar() {
     let { token, setToken } = useContext(TokenContext)
     let navigate = useNavigate()
 
-
+    // Get user data 
     function getUserData() {
         let headers = {
             token: localStorage.getItem("userToken")
@@ -31,14 +31,16 @@ export default function Navbar() {
         select: (data) => data.data.user
     })
 
+    console.log(data);
 
+    // Log out
     function logOut() {
         localStorage.removeItem("userToken")
         setToken(null)
         navigate("/login")
     }
 
-    console.log(data);
+    
 
 
     return (
@@ -60,28 +62,28 @@ export default function Navbar() {
 
                     <div className="flex gap-2 items-center justify-end flex-1 ">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
-                            <img src={data} className='cursor-pointer' alt="Profile" onClick={() => setShowText(!showText)} />
+                            <img src={data?.photo} className='cursor-pointer' alt="Profile" onClick={() => setShowText(!showText)} />
                         </div>
                         {showText && (
                             <div className="absolute right-0 mt-46 w-55 bg-white shadow-lg rounded-lg overflow-hidden z-10 ">
 
-                                
+
 
                                 <button
                                     className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
-                                    
+
                                 >
-                                 Welcome {data.name}!
+                                    Welcome {data?.name}!
                                 </button>
                                 <button
-                                    
+
                                     className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500 "
                                 >
-                                     {data.email}
+                                    {data?.email}
 
                                 </button>
                                 <button
-                                    
+
                                     className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
                                 >
                                     Change Profile pic
