@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import ProfileImg from '../../assets/profile.jpg'
 import { PostContext } from "../../Context/PostContext";
 
-export default function AddPost({ callback }) {
+export default function AddPost({ callback, user }) {
   let { addNewPost } = useContext(PostContext)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -36,13 +36,13 @@ export default function AddPost({ callback }) {
 
       <div className="flex items-center gap-3">
         <img
-          src={ProfileImg}
+          src={user?.data?.photo}
           alt="profile"
           className="w-10 h-10 rounded-full"
           required
         />
         <textarea
-          type="text"
+          
           name="body"
           placeholder="What's on your mind?"
           className="flex-1 bg-gray-100 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300"
@@ -68,18 +68,18 @@ export default function AddPost({ callback }) {
             <span>Feeling/Activity</span>
           </button>
         </div>
-{isLoading?<button
+        {isLoading ? <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
         >
-          Posting... 
+          Posting...
         </button> : <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
         >
           Add Post
         </button>}
-        
+
       </div>
     </form>
   );

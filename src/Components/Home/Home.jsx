@@ -6,7 +6,7 @@ import PostCardLoader from '../PostCardLoader/PostCardLoader';
 import AddPost from '../AddPost/AddPost';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { data } from 'react-router-dom';
+
 
 
 
@@ -43,7 +43,7 @@ export default function Home() {
 
             {isLoading ? <PostCardLoader /> : <>
 
-              <AddPost />
+              <AddPost user={data} />
               {data?.posts?.map((post) => <PostCard post={post} key={post._id} />)}
 
             </>}
