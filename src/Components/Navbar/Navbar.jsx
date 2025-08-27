@@ -18,15 +18,15 @@ export default function Navbar() {
     let navigate = useNavigate()
 
     // update profile picture
-    const fileInputRef = useRef(null);
-
-    function handleUpdateProfileImg(e) {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const formData = new FormData();
-      formData.append("photo", file);
-      updateProfileImg(formData);
-      setShowText(false); 
+    let fileInputRef = useRef(null);
+    async function handleUpdateProfileImg(e) {
+        let files = e.target.files?.[0];
+        if (!files) return;
+        let formData = new FormData();
+        formData.append("photo", files);
+        let updatedUser = await updateProfileImg(formData);
+        
+        setShowText(false)
     }
 
     // Get user data 
@@ -46,7 +46,7 @@ export default function Navbar() {
         select: (data) => data.data.user
     })
 
-    console.log(data);
+    
 
     // Log out
     function logOut() {
