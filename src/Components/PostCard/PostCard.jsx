@@ -53,11 +53,24 @@ export default function PostCard({ post, callback }) {
                     <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg overflow-hidden z-10">
 
                         <button
-                            onClick={() => handleDelete(post._id)}
+                           onClick={()=>document.getElementById('my_modal_1').showModal()}
                             className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
                         >
                             Delete
                         </button>
+                        <dialog id="my_modal_1" className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Hello!</h3>
+                                <p className="py-4">Press ESC key or click the button below to close</p>
+                                <div className="modal-action">
+                                    <form method="dialog">
+                                       
+                                        <button className="btn">Close</button>
+                                        <button className="btn btn-error" onClick={()=>handleDelete(post?._id)}>Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 )}
             </div>

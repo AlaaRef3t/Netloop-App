@@ -13,6 +13,7 @@ import ProtectedAuth from './Components/ProtectedAuth/ProtectedAuth';
 import PostDetails from './Components/PostDetails/PostDetails';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import TestComp from './Components/TestComp/TestComp';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       path: "", element: <Layout />, children: [
         { index: true, element: <ProtectedRoutes> <Home /></ProtectedRoutes> },
         { path: "userPosts", element: <ProtectedRoutes><UserPosts /></ProtectedRoutes> },
+        { path: "testComp", element: <ProtectedRoutes><TestComp /></ProtectedRoutes> },
         { path: "postDetails/:id", element: <ProtectedRoutes><PostDetails /></ProtectedRoutes> },
 
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import ProfileImg from '../../assets/profile.jpg'
 import { TokenContext } from '../../Context/TokenContext'
@@ -8,11 +8,26 @@ import { IoLogOut } from "react-icons/io5";
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { MdEmail } from "react-icons/md";
+import { PostContext } from '../../Context/PostContext';
 
 export default function Navbar() {
     const [showText, setShowText] = useState(false)
     let { token, setToken } = useContext(TokenContext)
+    let { updateProfileImg } = useContext(PostContext)
+
     let navigate = useNavigate()
+
+    // update profile picture
+    const fileInputRef = useRef(null);
+
+    function handleUpdateProfileImg(e) {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("photo", file);
+      updateProfileImg(formData);
+      setShowText(false); 
+    }
 
     // Get user data 
     function getUserData() {
@@ -40,7 +55,7 @@ export default function Navbar() {
         navigate("/login")
     }
 
-    
+
 
 
     return (
@@ -83,11 +98,20 @@ export default function Navbar() {
 
                                 </button>
                                 <button
-
+                                    onClick={() => fileInputRef.current?.click()}
                                     className="cursor-pointer w-full text-left px-4 py-2 hover:bg-gray-100 text-black-500"
                                 >
                                     Change Profile pic
                                 </button>
+
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={handleUpdateProfileImg}
+                                />
+
                             </div>
                         )}
 

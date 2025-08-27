@@ -10,21 +10,6 @@ export default function PostContextProvider({ children }) {
         token: localStorage.getItem("userToken")
     }
 
-    // async function getAllPosts() {
-    //     let headers = {
-    //         token: localStorage.getItem("userToken")
-    //     }
-    //     try {
-
-    //         let { data } = await axios.get(`https://linked-posts.routemisr.com/posts?page=LAST_PAGE&limit=100&sort=-createdAt`, {
-    //             headers
-    //         })
-
-    //         return data.posts;
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
     async function getSinglePost(id) {
 
@@ -109,7 +94,7 @@ export default function PostContextProvider({ children }) {
             let { data } = await axios.delete(`https://linked-posts.routemisr.com/posts/${id}`, {
                 headers
             })
-            console.log(data , "from delete posts");
+            // console.log(data , "from delete posts");
             toast.success('Post Successfully Deleted!')
 
 
@@ -121,9 +106,23 @@ export default function PostContextProvider({ children }) {
         }
     }
 
+    async function updateProfileImg(formData) {
+        try {
+            let { data } = await axios.put("https://linked-posts.routemisr.com/users/upload-photo", formData, {
+                headers
+            })
+            console.log(data , "from update profile img");
+            toast.success('Profile Image Updated Successfully!')
+            return data.user;
+        } catch (error) {
+            console.log(error);
+            toast.error('Failed to Update Profile Image!')
+        }
+    }
+
     return <PostContext.Provider value={{
          getSinglePost, getUserData, getUserPosts,
-        addComment, addNewPost, deleteUserPost
+        addComment, addNewPost, deleteUserPost,updateProfileImg
     }}>
         {children}
     </PostContext.Provider>
