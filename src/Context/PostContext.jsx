@@ -1,10 +1,12 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import toast from "react-hot-toast";
 
 export let PostContext = createContext();
 
 export default function PostContextProvider({ children }) {
+
+    const [userData, setUserData] = useState(null)
 
     let headers = {
         token: localStorage.getItem("userToken")
@@ -35,7 +37,7 @@ export default function PostContextProvider({ children }) {
                 headers
             })
             // console.log(data , "from user data");
-
+            setUserData(data.user);
             return data.user;
         } catch (error) {
             console.log(error);
@@ -122,7 +124,7 @@ export default function PostContextProvider({ children }) {
 
     return <PostContext.Provider value={{
          getSinglePost, getUserData, getUserPosts,
-        addComment, addNewPost, deleteUserPost,updateProfileImg
+        addComment, addNewPost, deleteUserPost,updateProfileImg,userData
     }}>
         {children}
     </PostContext.Provider>

@@ -6,13 +6,14 @@ import PostCardLoader from '../PostCardLoader/PostCardLoader';
 import AddPost from '../AddPost/AddPost';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { TokenContext } from '../../Context/TokenContext';
 
 
 
 
 export default function Home() {
  
-
+let {token } = useContext(TokenContext)
    function getAllPosts() {
     let headers = {
       token: localStorage.getItem("userToken")
@@ -24,13 +25,15 @@ export default function Home() {
 
   }
 
-  let { data, isLoading, isError, isFetching, error } = useQuery({
+  let { data, isLoading, isError, isPending, isFetching, error } = useQuery({
     queryKey: ["allPosts"],
     queryFn: getAllPosts,
     select: (data) => data.data,
     retry: 2,
+    staleTime: 30 * 1000,
     // refetchInterval: 2000,
-    // gcTime: 2000,
+    gcTime: 5 * 60 * 1000,
+    enabled:token === null ? false : true
   });
 
   // console.log(data);
@@ -41,7 +44,7 @@ export default function Home() {
         <div className="flex justify-center items-center">
           <div className="w-full mt-12">
 
-            {isLoading ? <PostCardLoader /> : <>
+            {isPending ? <PostCardLoader /> : <>
 
               <AddPost user={data} />
               {data?.posts?.map((post) => <PostCard post={post} key={post._id} />)}

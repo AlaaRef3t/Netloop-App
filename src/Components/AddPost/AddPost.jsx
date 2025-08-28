@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProfileImg from '../../assets/profile.jpg'
 import { PostContext } from "../../Context/PostContext";
 
-export default function AddPost({ callback, user }) {
-  let { addNewPost } = useContext(PostContext)
+export default function AddPost({ callback }) {
+  let { addNewPost, userData ,getUserData } = useContext(PostContext)
   const [isLoading, setIsLoading] = useState(false)
-
+  useEffect(() => {
+    getUserData();
+  },[]);
 
   async function handleAddPost(e) {
 
@@ -36,7 +38,7 @@ export default function AddPost({ callback, user }) {
 
       <div className="flex items-center gap-3">
         <img
-          src={user?.data?.photo}
+          src={userData?.photo}
           alt="profile"
           className="w-10 h-10 rounded-full"
           required
